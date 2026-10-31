@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPark | Smart Parking System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <a class="brand" href="#dashboard">
+        <span class="brand-icon">P</span>
+        <span>Smart<span class="brand-light">Park</span>
+        <small>SMART PARKING SYSTEM</small></span>
+    </a>
+
+    <p class="nav-label">WORKSPACE</p>
+
+    <a href="#dashboard" class="nav-link active" data-page="dashboard">
+        <span>▦</span> Dashboard
+    </a>
+    <a href="#park" class="nav-link" data-page="park">
+        <span>＋</span> Park Vehicle
+    </a>
+    <a href="#remove" class="nav-link" data-page="remove">
+        <span>↗</span> Remove Vehicle
+    </a>
+    <a href="#search" class="nav-link" data-page="search">
+        <span>⌕</span> Search Vehicle
+    </a>
+    <a href="#parking" class="nav-link" data-page="parking">
+        <span>▤</span> Parking Records
+    </a>
+
+    <div class="sidebar-bottom">
+        <div class="online-indicator"></div>
+        <div>
+            <strong>System Online</strong>
+            <small>Parking services active</small>
+        </div>
+    </div>
+</aside>
+
+<main class="main-content">
+
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">SMART PARKING MANAGEMENT</p>
+            <h1 id="pageTitle">Dashboard Overview</h1>
+            <p id="pageSubtitle">Monitor your parking space in real time.</p>
+        </div>
+        <div class="clock-card">
+            <span class="clock-icon">◷</span>
+            <div>
+                <strong id="liveClock">Loading...</strong>
+                <small>Local time · India</small>
+            </div>
+        </div>
+    </header>
+
+    <!-- DASHBOARD PAGE -->
+    <section class="page active" id="page-dashboard">
+        <div class="hero">
+            <div class="hero-content">
+                <span class="hero-tag">✦ SMARTER PARKING STARTS HERE</span>
+                <h2>Every space.<br>Managed smarter.</h2>
+                <p>Park with ease. Track every vehicle. Calculate fees instantly.</p>
+                <a href="#park" class="hero-button">＋ Park a Vehicle <span>→</span></a>
+            </div>
+            <div class="hero-photo" role="img" aria-label="Car in a modern parking area">
+                <div class="photo-label"><span></span> SMART PARKING</div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <article class="stat-card">
+                <div class="stat-top"><span>Total Capacity</span><span class="stat-icon purple">▦</span></div>
+                <h2 id="totalSlots">20</h2>
+                <p>Parking spaces in total</p>
+            </article>
+            <article class="stat-card">
+                <div class="stat-top"><span>Available Slots</span><span class="stat-icon green">✓</span></div>
+                <h2 id="availableSlots">20</h2>
+                <p>Spaces ready for parking</p>
+            </article>
+            <article class="stat-card">
+                <div class="stat-top"><span>Occupied Slots</span><span class="stat-icon orange">🚘</span></div>
+                <h2 id="occupiedSlots">0</h2>
+                <p>Vehicles currently parked</p>
+            </article>
+        </div>
+
+        <div class="section-title">
+            <div>
+                <h2>Live Parking Map</h2>
+                <p>Updates automatically from the Java backend.</p>
+            </div>
+            <span class="live-badge"><span></span> LIVE STATUS</span>
+        </div>
+
+        <div class="card">
+            <div class="slot-grid" id="slotGrid"></div>
+        </div>
+
+        <div class="bottom-grid">
+            <div class="card quick-card">
+                <div class="section-title">
+                    <div><h2>Quick Actions</h2><p>Manage your parking area.</p></div>
+                </div>
+                <a class="action-row" href="#park"><span class="action-icon purple">＋</span><span><strong>Park a vehicle</strong><small>Register a new entry</small></span><b>→</b></a>
+                <a class="action-row" href="#remove"><span class="action-icon pink">↗</span><span><strong>Remove a vehicle</strong><small>Complete a parking session</small></span><b>→</b></a>
+                <a class="action-row" href="#search"><span class="action-icon green">⌕</span><span><strong>Search a vehicle</strong><small>Check current parking status</small></span><b>→</b></a>
+                <a class="action-row" href="#parking"><span class="action-icon green">▤</span><span><strong>View parking records</strong><small>See all active vehicles</small></span><b>→</b></a>
+            </div>
+
+            <div class="card info-card">
+                <span class="info-symbol">₹</span>
+                <p class="eyebrow">PARKING TARIFF</p>
+                <h2>₹30 <small>/ hour</small></h2>
+                <p>Charged for each started hour, according to the Java backend.</p>
+                <div class="info-line"><span>Parking capacity</span><strong>20 slots</strong></div>
+                <div class="info-line"><span>Data structure</span><strong>Java Array</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARK VEHICLE PAGE -->
+    <section class="page" id="page-park">
+        <div class="page-banner purple-banner">
+            <span class="banner-icon">＋</span>
+            <div><h2>Park a Vehicle</h2><p>Register a vehicle and assign it an available slot.</p></div>
+        </div>
+        <div class="form-layout">
+            <div class="card form-card">
+                <div class="section-title"><div><h2>Vehicle Entry</h2><p>Enter the registration details below.</p></div></div>
+                <form id="parkForm">
+                    <label for="vehicleNumber">Vehicle Registration Number</label>
+                    <input id="vehicleNumber" type="text" maxlength="20" placeholder="e.g. TN01AB1234" required>
+                    <small class="field-help">Enter the vehicle number without extra spaces.</small>
+                    <button class="primary-button" type="submit">Confirm Parking <span>→</span></button>
+                </form>
+                <div id="parkMessage" class="form-message" role="status"></div>
+            </div>
+            <div class="card side-info">
+                <div class="mini-car">🚘</div>
+                <h2>Ready to park?</h2>
+                <p>Your vehicle will appear in the live parking records after a successful response from the server.</p>
+                <div class="info-line"><span>Available spaces</span><strong id="parkAvailable">20</strong></div>
+                <div class="info-line"><span>Maximum capacity</span><strong>20 vehicles</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REMOVE VEHICLE PAGE -->
+    <section class="page" id="page-remove">
+        <div class="page-banner pink-banner">
+            <span class="banner-icon">↗</span>
+            <div><h2>Remove a Vehicle</h2><p>Complete a parking session and check the parking fee.</p></div>
+        </div>
+        <div class="form-layout">
+            <div class="card form-card">
+                <div class="section-title"><div><h2>Vehicle Exit</h2><p>Enter the registration number to remove the vehicle.</p></div></div>
+                <form id="removeForm">
+                    <label for="removeNumber">Vehicle Registration Number</label>
+                    <input id="removeNumber" type="text" maxlength="20" placeholder="e.g. TN01AB1234" required>
+                    <small class="field-help">Use the same number entered when parking.</small>
+                    <button class="primary-button remove-submit" type="submit">Complete Exit <span>→</span></button>
+                </form>
+                <div id="removeMessage" class="form-message" role="status"></div>
+            </div>
+            <div class="card side-info">
+                <div class="mini-car pink-car">↗</div>
+                <h2>Simple exit process</h2>
+                <p>The Java backend calculates the fee and updates the available parking slots.</p>
+                <div class="fee-box"><small>Parking tariff</small><strong>₹30 <span>/ started hour</span></strong></div>
+                <p class="field-help">The final fee is provided by the Java backend.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEARCH VEHICLE PAGE -->
+    <section class="page" id="page-search">
+        <div class="page-banner green-banner">
+            <span class="banner-icon">⌕</span>
+            <div>
+                <h2>Search Vehicle</h2>
+                <p>Check whether a vehicle is currently parked in SmartPark.</p>
+            </div>
+        </div>
+
+        <div class="form-layout">
+            <div class="card form-card">
+                <div class="section-title">
+                    <div>
+                        <h2>Find a Vehicle</h2>
+                        <p>Enter the vehicle registration number to check its current status.</p>
+                    </div>
+                </div>
+
+                <form id="searchForm">
+                    <label for="searchNumber">Vehicle Registration Number</label>
+                    <input id="searchNumber" type="text" maxlength="20" placeholder="e.g. TN01AB1234" required>
+                    <small class="field-help">Search is not case-sensitive. Example: tn01ab1234 or TN01AB1234.</small>
+                    <button class="primary-button" type="submit">Search Vehicle <span>⌕</span></button>
+                </form>
+
+                <div id="searchMessage" class="form-message" role="status" aria-live="polite"></div>
+            </div>
+
+            <div class="card side-info">
+                <div class="mini-car">⌕</div>
+                <h2>Quick vehicle check</h2>
+                <p>SmartPark checks the live vehicle array in the Java backend. The result reflects the current parking status.</p>
+                <div class="info-line"><span>Search type</span><strong>Registration number</strong></div>
+                <div class="info-line"><span>Data source</span><strong>Java Array</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARKING RECORDS PAGE -->
+    <section class="page" id="page-parking">
+        <div class="page-banner green-banner">
+            <span class="banner-icon">▤</span>
+            <div><h2>Parking Records</h2><p>View vehicles currently in the parking area.</p></div>
+        </div>
+        <div class="stats compact-stats">
+            <article class="stat-card"><div class="stat-top"><span>Active Vehicles</span><span class="stat-icon purple">🚘</span></div><h2 id="recordTotal">0</h2><p>Currently registered</p></article>
+            <article class="stat-card"><div class="stat-top"><span>Available Slots</span><span class="stat-icon green">✓</span></div><h2 id="recordAvailable">20</h2><p>Ready for vehicles</p></article>
+        </div>
+        <div class="card records-card">
+            <div class="section-title">
+                <div><h2>Active Vehicle List</h2><p>Records received from the Java server.</p></div>
+                <span class="record-badge" id="recordCount">0 vehicles</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Slot</th><th>Vehicle Number</th><th>Entry Time</th><th>Status</th></tr></thead>
+                    <tbody id="parkingList"><tr><td colspan="4" class="empty-state">Loading parking records...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <div id="message" class="global-message" role="status"></div>
+
+    <!-- POPUP WINDOW -->
+    <div id="smartPopup" class="popup-overlay" aria-hidden="true">
+        <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+            <div id="popupIcon" class="popup-icon">✓</div>
+            <h2 id="popupTitle">Success!</h2>
+            <p id="popupMessage">Vehicle parked successfully!</p>
+            <button id="popupOk" class="popup-ok" type="button">OK</button>
+        </div>
+    </div>
+
+    <footer>
+        <strong>SmartPark</strong> · Smart Parking Fee Calculator
+        <span>Built with Java Arrays & Web Technologies · © 2026</span>
+    </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
